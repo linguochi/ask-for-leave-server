@@ -1,0 +1,22 @@
+{
+  "name": "ask-for-leave-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linguochi/ask-for-leave-server.git"
+  },
+  "author": "linguochi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linguochi/ask-for-leave-server/issues"
+  },
+  "homepage": "https://github.com/linguochi/ask-for-leave-server#readme",
+  "dependencies": {
+    "koa": "^2.4.1"
+  }
+}
