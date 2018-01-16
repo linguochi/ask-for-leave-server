@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const app = new Koa();
 const db = require('./restfull/models/db');
+const routers = require('./restfull/routers');
 
 app.use(async ctx => {
   ctx.body = 'Hello World';
