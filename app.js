@@ -1,5 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
+require('babel-register')
 const db = require('./restfull/models/db');
 const routers = require('./restfull/routers');
 
