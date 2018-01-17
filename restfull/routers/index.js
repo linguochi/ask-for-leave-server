@@ -10,6 +10,7 @@ const router = require('koa-router')(
 );
 
 router.get('addUser', UserController.addUser);
+router.post('wxUserLogin', UserController.wxUserLogin);
 router.get('findAllUsers', UserController.findAllUsers);
 
 module.exports = router;
