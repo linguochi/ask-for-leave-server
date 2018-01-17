@@ -20,11 +20,12 @@ class UserController {
 
   }
 
-  static async wxUserLogin(req, res, next) {
-    const code = req.body.code;
-    this.getSessionKey(code).then(
+  static async wxUserLogin(ctx) {
+    console.log(ctx);
+    const code = ctx.query.code;
+    UserController.getSessionKey(code).then(
         res => {
-          debugger;
+          console.log(res);
         },
         err => {},
     ).catch(
@@ -49,7 +50,7 @@ class UserController {
   /**
    * code 换取 session_key
    */
-  getSessionKey(code) {
+  static getSessionKey(code) {
     const appId = config.weChat.appId;
     const secret = config.weChat.secret;
     return new Promise((resolve, reject) => {
@@ -63,9 +64,6 @@ class UserController {
           reject(err);
         }
         res = JSON.parse(res.text);
-        if (!!res.errcode) {
-          reject(new Error(res.errmsg));
-        }
         resolve(res);
       });
     });
