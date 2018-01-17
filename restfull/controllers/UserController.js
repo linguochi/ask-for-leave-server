@@ -10,9 +10,7 @@ class UserController {
       phoneNumber: '13800138000',
     });
     user = await user.save();
-    ctx.body = {
-      data: user,
-    };
+    ctx.success({ msg: '新增用户成功', data: user });
 
   }
 
