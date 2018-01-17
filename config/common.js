@@ -7,7 +7,7 @@ module.exports = {
   development: {
     //数据库配置
     mongo: {
-      uri: 'mongodb://localhost:27017/test',
+      uri: 'mongodb://localhost:27017/askForLeave',
     },
     port: '3000',
   },

@@ -3,8 +3,13 @@
  */
 import {UserController} from '../controllers/index';
 
-const router = require('koa-router')();
+const router = require('koa-router')(
+    {
+      prefix: '/api/',
+    },
+);
 
-router.get('/api/query', UserController.query);
+router.get('addUser', UserController.addUser);
+router.get('findAllUsers', UserController.findAllUsers);
 
 module.exports = router;

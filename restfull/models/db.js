@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 const config = require('../../config/common');
 
 const dbConfig = config[process.env.NODE_ENV||'development'];

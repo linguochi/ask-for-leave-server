@@ -2,10 +2,8 @@ const Koa = require('koa');
 const app = new Koa();
 const db = require('./restfull/models/db');
 const routers = require('./restfull/routers');
+app.use(routers.routes())
 
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
 // logger
 app.use(async (ctx, next) => {
   const start = new Date();
