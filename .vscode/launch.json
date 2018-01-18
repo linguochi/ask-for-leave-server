@@ -5,12 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Attach",
             "type": "node",
-            "request": "attach",
-            "port": 5858,
-            "restart": true
-        },
+            "request": "launch",
+            "name": "nodemon",
+            "runtimeExecutable": "nodemon",
+            "program": "${workspaceFolder}/app.js",
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+          },
+        
         {
             "name": "launch",
             "runtimeExecutable": "npm",

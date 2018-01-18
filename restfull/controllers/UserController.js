@@ -18,9 +18,9 @@ class UserController {
       sex: 0,
     });
     user = await user.save();
-    console.log('啊qqq')
+    console.log('啊qq啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊qqq')
     ctx.success({
-      msg: '新增用户成功',
+      msg: '新增用户功',
       data: user
     });
   }
