@@ -17,7 +17,6 @@ class UserController {
     });
     user = await user.save();
     ctx.success({ msg: '新增用户成功', data: user });
-
   }
 
   static async wxUserLogin(ctx) {

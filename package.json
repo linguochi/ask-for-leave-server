@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon bin/run ",
     "start": "cross-env NODE_ENV=production node bin/run ",
-    "debug": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon --inspect bin/run --exec babel-node",
+    "debug": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon --inspect-brk bin/run --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
