@@ -1,4 +1,6 @@
-import {UserModel} from '../models/index';
+import {
+  UserModel
+} from '../models/index';
 import CommonConfig from '../../config/common';
 import request from 'superagent';
 
@@ -16,19 +18,23 @@ class UserController {
       sex: 0,
     });
     user = await user.save();
-    ctx.success({ msg: '新增用户成功', data: user });
+    console.log('啊qqq')
+    ctx.success({
+      msg: '新增用户成功',
+      data: user
+    });
   }
 
   static async wxUserLogin(ctx) {
     console.log(ctx);
     const code = ctx.query.code;
     UserController.getSessionKey(code).then(
-        res => {
-          console.log(res);
-        },
-        err => {},
+      res => {
+        console.log(res);
+      },
+      err => {},
     ).catch(
-        err => next(err),
+      err => next(err),
     );
   }
 
@@ -36,7 +42,7 @@ class UserController {
   static async findAllUsers(ctx) {
     const query = UserModel.find({});
     let res = [];
-    await query.exec(function(err, users) {
+    await query.exec(function (err, users) {
       if (err) {
         res = [];
       } else {
