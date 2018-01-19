@@ -3,6 +3,7 @@ const app = new Koa();
 const debug = require('debug')('demo:server');
 const cfile = require('./config/common');
 const config = cfile[process.env.NODE_ENV || 'development'];
+const koaBody = require('koa-body');
 /**
  * Get port from environment and store in Express.
  */
@@ -11,6 +12,8 @@ const port = normalizePort(config.port);
 require('babel-register');
 const db = require('./restfull/models/db');
 const routers = require('./restfull/routers');
+
+app.use(koaBody());
 
 app.use(require('./restfull/middlewares/response'));
 

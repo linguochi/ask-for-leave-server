@@ -13,8 +13,7 @@
             "restart": true,
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
-          },
-        
+        },
         {
             "name": "launch",
             "runtimeExecutable": "npm",
@@ -23,10 +22,10 @@
                 "debug"
             ],
             "request": "launch",
-			"type": "node",
+            "type": "node",
             "port": 9229,
             "protocol": "inspector",
-			"cwd": "${workspaceRoot}",
-		}
+            "cwd": "${workspaceRoot}"
+        }
     ]
 }

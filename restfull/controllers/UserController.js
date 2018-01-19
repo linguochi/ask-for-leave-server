@@ -18,24 +18,27 @@ class UserController {
       sex: 0,
     });
     user = await user.save();
-    console.log('啊qq啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊qqq')
     ctx.success({
       msg: '新增用户功',
-      data: user
+      data: user,
     });
   }
 
+  //更新用户信息
+  static async updateUserInfo(ctx) {
+
+    const userInfo = ctx.body
+  }
+
   static async wxUserLogin(ctx) {
-    console.log(ctx);
     const code = ctx.query.code;
-    UserController.getSessionKey(code).then(
-      res => {
-        console.log(res);
-      },
-      err => {},
-    ).catch(
-      err => next(err),
-    );
+
+    var data = await UserController.getSessionKey(code);
+    
+    ctx.success({
+      msg: '登陆成功',
+      data: data,
+    });
   }
 
   //用户列表
