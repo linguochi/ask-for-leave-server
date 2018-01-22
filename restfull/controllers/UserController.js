@@ -1,8 +1,9 @@
-import {
-  UserModel
-} from '../models/index';
+import {UserModel} from '../models/index';
 import CommonConfig from '../../config/common';
+import JWT from '../../utils/token';
 import request from 'superagent';
+
+var WXBizDataCrypt = require('../../utils/WXBizDataCrypt');
 
 const config = CommonConfig[process.env.NODE_ENV || 'development'];
 
@@ -27,17 +28,46 @@ class UserController {
   //更新用户信息
   static async updateUserInfo(ctx) {
 
-    const userInfo = ctx.body
+    const userInfo = ctx.body;
   }
 
   static async wxUserLogin(ctx) {
-    const code = ctx.query.code;
+    const postData = ctx.request.body;
+    let { code, userinfo } = postData;
+    let { iv, encryptedData } = userinfo;
+    console.log(postData);
+    //得到 session_key 和 openId
+    let sessionData = await UserController.getSessionKey(code);
+    console.log(sessionData);
+    if (!sessionData.openid) {
+      return ctx.error({ msg: '登陆失败' });
+    }
+    //解密出敏感信息
+    let pc = new WXBizDataCrypt(config.weChat.appId, sessionData.session_key);
+    let userData = pc.decryptData(encryptedData, iv);
 
-    var data = await UserController.getSessionKey(code);
-    
+    //根据openid查询用户是否已经注册
+    let userInfo = await UserModel.find({ openid: sessionData.openid });
+
+    //没有注册过则新增这个用户
+    if (!userInfo) {
+      var newUser = new UserModel({
+        name: userData.username,
+        nickname: userData.username,
+        avatar: userData.avatarUrl,
+        phoneNumber: '13800138000',
+        openId: sessionData.openid,
+        sex: userData.gender,
+      });
+      newUser = await newUser.save();
+    }
+    sessionData.user_id = newUser;
+
+    const token = new JWT().create(sessionData);
+
     ctx.success({
       msg: '登陆成功',
-      data: data,
+      data: token,
     });
   }
 
@@ -45,7 +75,7 @@ class UserController {
   static async findAllUsers(ctx) {
     const query = UserModel.find({});
     let res = [];
-    await query.exec(function (err, users) {
+    await query.exec(function(err, users) {
       if (err) {
         res = [];
       } else {

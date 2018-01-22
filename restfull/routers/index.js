@@ -8,7 +8,7 @@ const router = require('koa-router')({
 },);
 
 router.get('addUser', UserController.addUser);
-router.get('wxUserLogin', UserController.wxUserLogin);
+router.post('wxUserLogin', UserController.wxUserLogin);
 router.get('findAllUsers', UserController.findAllUsers);
 router.post('updateUserInfo', UserController.updateUserInfo);
 
