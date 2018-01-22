@@ -35,7 +35,6 @@ class UserController {
     const postData = ctx.request.body;
     let { code, userinfo } = postData;
     let { iv, encryptedData } = userinfo;
-    console.log(postData);
     //得到 session_key 和 openId
     let sessionData = await UserController.getSessionKey(code);
     console.log(sessionData);
@@ -47,27 +46,30 @@ class UserController {
     let userData = pc.decryptData(encryptedData, iv);
 
     //根据openid查询用户是否已经注册
-    let userInfo = await UserModel.find({ openid: sessionData.openid });
-
+    let userInfo = await UserModel.findOne({ openId: sessionData.openid });
+    console.log('userInfo:' + userInfo);
     //没有注册过则新增这个用户
-    if (!userInfo) {
-      var newUser = new UserModel({
-        name: userData.username,
-        nickname: userData.username,
+    if (lodash.isEmpty(userInfo)) {
+      userInfo = new UserModel({
+        name: userData.nickName,
+        nickname: userData.nickName,
         avatar: userData.avatarUrl,
         phoneNumber: '13800138000',
         openId: sessionData.openid,
         sex: userData.gender,
       });
-      newUser = await newUser.save();
+      userInfo = await userInfo.save();
     }
-    sessionData.user_id = newUser;
 
-    const token = new JWT().create(sessionData);
+    sessionData.user_id = userInfo.id;
+
+    const token = await (new JWT()).create(sessionData);
+
+    console.log(token);
 
     ctx.success({
       msg: '登陆成功',
-      data: token,
+      data: { token: token },
     });
   }
 

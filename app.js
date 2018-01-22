@@ -4,6 +4,7 @@ const debug = require('debug')('demo:server');
 const cfile = require('./config/common');
 const config = cfile[process.env.NODE_ENV || 'development'];
 const koaBody = require('koa-body');
+global.lodash = require('lodash');
 /**
  * Get port from environment and store in Express.
  */
@@ -20,7 +21,7 @@ app.use(require('./restfull/middlewares/response'));
 app.use(routers.routes());
 
 // logger
-app.use(async(ctx, next) => {
+app.use(async (ctx, next) => {
   const start = new Date();
   await next();
   const ms = new Date() - start;
@@ -56,9 +57,7 @@ function onError(error) {
     throw error;
   }
 
-  const bind = typeof port === 'string' ?
-    'Pipe ' + port :
-    'Port ' + port;
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -81,9 +80,7 @@ function onError(error) {
 
 function onListening() {
   const addr = server.address();
-  const bind = typeof addr === 'string' ?
-    'pipe ' + addr :
-    'port ' + addr.port;
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
 
