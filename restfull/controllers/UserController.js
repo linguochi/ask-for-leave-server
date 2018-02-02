@@ -47,7 +47,6 @@ class UserController {
 
     //根据openid查询用户是否已经注册
     let userInfo = await UserModel.findOne({ openId: sessionData.openid });
-    console.log('userInfo:' + userInfo);
     //没有注册过则新增这个用户
     if (lodash.isEmpty(userInfo)) {
       userInfo = new UserModel({
