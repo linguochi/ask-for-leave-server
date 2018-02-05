@@ -26,7 +26,6 @@ module.exports = function() {
         let payload;
         try {
           payload = await parse(token.split(' ')[1], secret);  // 解密payload，获取用户名和ID
-          console.log(payload);
           ctx.user = {
             openid: payload.data.openid,
             id: payload.data.user_id,
@@ -35,9 +34,6 @@ module.exports = function() {
           console.log('token verify fail: ', err);
         }
       }
-
-      console.log(`token: ${token}`);
-
       await next();
     } catch (err) {
       if (err.status === 401) {
