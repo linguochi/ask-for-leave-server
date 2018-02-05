@@ -25,6 +25,7 @@ const mockData = {
       description: Random.ctitle(3, 10),//为什么请假
       status: '1',
     };
+    return applyRecord
   },
 };
 

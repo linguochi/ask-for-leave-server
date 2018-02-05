@@ -2,6 +2,8 @@ const Koa = require('koa');
 const app = new Koa();
 const debug = require('debug')('demo:server');
 const cfile = require('./config/common');
+const jwt = require('koa-jwt');
+const tokenErrorHandler = require('./restfull/middlewares/tokenErrorHandler');
 const config = cfile[process.env.NODE_ENV || 'development'];
 const koaBody = require('koa-body');
 global.lodash = require('lodash');
@@ -15,7 +17,11 @@ const db = require('./restfull/models/db');
 const routers = require('./restfull/routers');
 
 app.use(koaBody());
-
+app.use(tokenErrorHandler());
+app.use(jwt({
+      secret: config.jwtSecret,
+    }).unless({ path: [/^\/api\/wxUserLogin/] }),
+);
 app.use(require('./restfull/middlewares/response'));
 
 app.use(routers.routes());

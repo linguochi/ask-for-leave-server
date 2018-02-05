@@ -5,7 +5,7 @@ import mockData from '../mock/index';
 const config = CommonConfig[process.env.NODE_ENV || 'development'];
 
 class RecordController {
-  static async records(ctx) {
+  static async getRecords(ctx) {
     let recordsResult = await RecordModel.find();
     ctx.success({
       msg: '获取数据成功',
@@ -13,14 +13,14 @@ class RecordController {
     });
   }
 
-  //新增用户
+  //添加
   static async addRecord(ctx) {
+    console.log(ctx.user);
     var record = mockData.generateApplyRecord();
-    debugger;
-
     ctx.success({
       msg: '新增用户功',
-      data: user,
+      data: record,
+
     });
   }
 

@@ -11,7 +11,8 @@ const router = require('koa-router')({
 router.get('addUser', UserController.addUser);
 router.post('wxUserLogin', UserController.wxUserLogin);
 router.get('findAllUsers', UserController.findAllUsers);
-router.get('getRecords', RecordController.records());
+router.get('getRecords', RecordController.getRecords);
 router.post('updateUserInfo', UserController.updateUserInfo);
+router.post('askforleave', RecordController.addRecord);
 
 module.exports = router;

@@ -14,6 +14,7 @@ module.exports = {
       appId: 'wx57d86edd2c6f438d',
       secret: 'cdd081c1fb23cf4a73dcfe90a034fbe7',
     },
+    jwtSecret: 'linguochi',
   },
   //
 };
