@@ -5,7 +5,7 @@ const config = CommonConfig[process.env.NODE_ENV || 'development'];
 
 class RecordController {
   static async getRecords(ctx) {
-    let recordsResult = await RecordModel.find();
+    let recordsResult = await RecordModel.find().populate('_user');
     ctx.success({
       msg: '获取数据成功',
       data: recordsResult,
@@ -20,7 +20,7 @@ class RecordController {
       let result = await RecordModel.create({
         from: newRecord.startTime, // 从什么时候开始请假
         to: newRecord.endTime, // 请到什么时候
-        user_id: newRecord.user_id, // 谁请假
+        _user: newRecord.user_id, // 谁请假
         apply_user_ids: newRecord.applyFor,//向谁请假
         description: 'hello',//为什么请假
         status: 0, //状态码 {0：审批中 1：同意请假 2：请假不通过 3：取消请假}
