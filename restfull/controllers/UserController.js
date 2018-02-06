@@ -25,6 +25,17 @@ class UserController {
     });
   }
 
+  //当前用户的直接上级
+  static async getUserLeader(ctx) {
+    let currentUser = await UserModel.findOne({
+      _id: ctx.user.id,
+    }).populate('leader');
+    ctx.success({
+      msg: '获取数据成功',
+      data: currentUser.leader,
+    });
+  }
+
   //更新用户信息
   static async updateUserInfo(ctx) {
 

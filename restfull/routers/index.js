@@ -1,8 +1,7 @@
 /*
   路由
  */
-import {UserController} from '../controllers/index';
-import {RecordController} from '../controllers/index';
+import {RecordController, UserController} from '../controllers/index';
 
 const router = require('koa-router')({
   prefix: '/api/',
@@ -14,5 +13,7 @@ router.get('findAllUsers', UserController.findAllUsers);
 router.get('getRecords', RecordController.getRecords);
 router.post('updateUserInfo', UserController.updateUserInfo);
 router.post('askforleave', RecordController.addRecord);
+router.get('getUserLeader', UserController.getUserLeader);
+router.get('getVerifyRecords', RecordController.getVerifyRecords);
 
 module.exports = router;
